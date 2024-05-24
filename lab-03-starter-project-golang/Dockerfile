@@ -9,7 +9,7 @@ COPY . .
 
 RUN go build -o build/fizzbuzz
 
-FROM scratch
+FROM busybox:latest
 
 COPY --from=builder /app/build/fizzbuzz /fizzbuzz
 COPY --from=builder /app/templates/index.html /templates/
