@@ -9,7 +9,7 @@ COPY . .
 
 RUN go build -o build/fizzbuzz
 
-FROM busybox:latest
+FROM gcr.io/distroless/base
 
 COPY --from=builder /app/build/fizzbuzz /fizzbuzz
 COPY --from=builder /app/templates/index.html /templates/
