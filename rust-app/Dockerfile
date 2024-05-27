@@ -8,7 +8,7 @@ RUN cargo install --locked --path .
 
 RUN cargo build --release
 
-FROM debian:buster-slim AS final
+FROM gcr.io/distroless/cc-debian11 AS final
 
 COPY --from=builder /app/target/release/rust-app /app/rust-app
 
