@@ -1,16 +1,16 @@
-# Use the latest version of the Rust base image
-FROM rust:latest
+FROM rust:1.77.0-slim as builder
 
-# Set the working directory in the container to /my
-WORKDIR /usr/src/rust-app
+COPY . /app
 
-# Copy the Rust project files to the working directory
-COPY . .
+WORKDIR /app
 
-# Build the Rust app
 RUN cargo build --release
 
-# Set the command to run the Rust app
-CMD ["./target/release/rust-app"]
+FROM debian:bullseye-slim AS final
+
+COPY --from=builder /app/target/release/rust-app /app/rust-app
+WORKDIR /rust-app
+
+CMD ["./rust-app"]
 
 EXPOSE 8080
